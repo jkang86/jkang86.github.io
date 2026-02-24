@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gaming Analytics Hub — League of Legends and Valorant data visualizations by Joseph Kang.">
+  <title>Gaming Analytics | Joseph Kang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <!-- D3.js -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" defer></script>
+
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="nav-logo"><span class="logo-accent">JK</span>.dev</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="gaming.html" class="active">Gaming</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle light and dark mode" title="Toggle theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="gaming.html" class="active">Gaming</a>
+    <a href="resume.html">Resume</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <h1 class="section-title">Gaming <span>Analytics</span> Hub</h1>
+      <div class="gold-line"></div>
+      <p class="section-subtitle">Sample dashboards demonstrating data visualization skills through gaming data</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- League of Legends Section -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 8px;">
+          <i class="fa-solid fa-gamepad" style="color: var(--t1-gold);"></i>
+          League of <span>Legends</span>
+        </h2>
+        <div class="gold-line"></div>
+        <p class="section-subtitle" style="margin-bottom: 24px;">Performance analytics from ranked matches</p>
+
+        <!-- Op.gg Profile Link -->
+        <div class="opgg-embed-container">
+          <a href="https://op.gg/summoners/na/gamjahtang-galbi" target="_blank" rel="noopener noreferrer" class="opgg-link">
+            <i class="fa-solid fa-chart-simple"></i>
+            View Full Profile on OP.GG
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
+          </a>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Champion Win Rate -->
+          <div class="dashboard-card fade-in">
+            <div class="dashboard-card-header">
+              <i class="fa-solid fa-chart-column"></i>
+              <h3>Champion Win Rates</h3>
+              <span class="data-status-tooltip" data-source="lol">
+                <i class="fa-solid fa-circle-info"></i>
+                <span class="status-dot sample"></span>
+                <span class="tooltip-text">Sample Data</span>
+              </span>
+              <span class="game-badge lol">LoL</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="lolWinRateChart" aria-label="Bar chart showing League of Legends champion win rates"></canvas>
+            </div>
+          </div>
+
+          <!-- Rank Progression -->
+          <div class="dashboard-card fade-in">
+            <div class="dashboard-card-header">
+              <i class="fa-solid fa-arrow-trend-up"></i>
+              <h3>Rank Progression</h3>
+              <span class="data-status-tooltip" data-source="lol">
+                <i class="fa-solid fa-circle-info"></i>
+                <span class="status-dot sample"></span>
+                <span class="tooltip-text">Sample Data</span>
+              </span>
+              <span class="game-badge lol">LoL</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="lolRankChart" aria-label="Line chart showing League of Legends rank progression over months"></canvas>
+            </div>
+          </div>
+
+          <!-- Role Distribution -->
+          <div class="dashboard-card fade-in">
+            <div class="dashboard-card-header">
+              <i class="fa-solid fa-chart-pie"></i>
+              <h3>Role Distribution</h3>
+              <span class="data-status-tooltip" data-source="lol">
+                <i class="fa-solid fa-circle-info"></i>
+                <span class="status-dot sample"></span>
+                <span class="tooltip-text">Sample Data</span>
+              </span>
+              <span class="game-badge lol">LoL</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="lolRoleChart" aria-label="Doughnut chart showing role distribution in League of Legends"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep Dive Stats Section -->
+    <section class="section" style="background: var(--bg-secondary); transition: var(--theme-transition);">
+      <div class="container">
+        <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 8px;">
+          <i class="fa-solid fa-magnifying-glass-chart" style="color: var(--t1-red);"></i>
+          Performance <span>Deep Dive</span>
+        </h2>
+        <div class="gold-line"></div>
+        <p class="section-subtitle" style="margin-bottom: 40px;">Detailed match analytics and champion performance breakdown</p>
+
+        <div class="dashboard-grid">
+          <!-- KDA Trend -->
+          <div class="dashboard-card fade-in">
+            <div class="dashboard-card-header">
+              <i class="fa-solid fa-chart-line"></i>
+              <h3>KDA Trend</h3>
+              <span class="data-status-tooltip" data-source="lol">
+                <i class="fa-solid fa-circle-info"></i>
+                <span class="status-dot sample"></span>
+                <span class="tooltip-text">Sample Data</span>
+              </span>
+              <span class="game-badge lol">LoL</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="lolKDAChart" aria-label="Line chart showing KDA ratio trend over recent matches"></canvas>
+            </div>
+          </div>
+
+          <!-- Champion Avg Stats Radar -->
+          <div class="dashboard-card fade-in">
+            <div class="dashboard-card-header">
+              <i class="fa-solid fa-spider"></i>
+              <h3>Champion Comparison</h3>
+              <span class="data-status-tooltip" data-source="lol">
+                <i class="fa-solid fa-circle-info"></i>
+                <span class="status-dot sample"></span>
+                <span class="tooltip-text">Sample Data</span>
+              </span>
+              <span class="game-badge lol">LoL</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="lolChampStatsChart" aria-label="Radar chart comparing average stats across top champions"></canvas>
+            </div>
+          </div>
+
+          <!-- Most Played Champions -->
+          <div class="dashboard-card fade-in">
+            <div class="dashboard-card-header">
+              <i class="fa-solid fa-ranking-star"></i>
+              <h3>Most Played Champions</h3>
+              <span class="data-status-tooltip" data-source="lol">
+                <i class="fa-solid fa-circle-info"></i>
+                <span class="status-dot sample"></span>
+                <span class="tooltip-text">Sample Data</span>
+              </span>
+              <span class="game-badge lol">LoL</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="lolMostPlayedChart" aria-label="Horizontal bar chart showing most played champions"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- D3.js Custom Visualization -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 8px;">
+          <i class="fa-solid fa-hexagon-nodes" style="color: var(--t1-gold);"></i>
+          Custom <span>Visualization</span>
+        </h2>
+        <div class="gold-line"></div>
+        <p class="section-subtitle" style="margin-bottom: 40px;">Built with D3.js — an interactive player stat hexagon</p>
+
+        <div class="fade-in" style="max-width: 500px; margin: 0 auto;">
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <i class="fa-solid fa-star"></i>
+              <h3>Player Stat Hexagon</h3>
+              <span class="game-badge lol">D3.js</span>
+            </div>
+            <div id="d3HexChart" style="width: 100%; display: flex; justify-content: center;" aria-label="Hexagonal radar chart showing player stats built with D3.js"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Joseph Kang. Built with passion for data and gaming.</p>
+      <p class="footer-attribution">
+        Gaming data powered by Riot Games API. Not endorsed by Riot Games.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/data-loader.js" defer></script>
+  <script src="js/charts.js" defer></script>
+</body>
+</html>

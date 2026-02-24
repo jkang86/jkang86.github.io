@@ -1,0 +1,42 @@
+{
+  "source": "sample",
+  "lastUpdated": null,
+  "lol": {
+    "championWinRates": {
+      "labels": ["Jinx", "Ahri", "Yasuo", "Lux", "Thresh", "Lee Sin", "Zed"],
+      "data": [56, 53, 48, 54, 51, 47, 49]
+    },
+    "rankProgression": {
+      "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+      "data": [45, 62, 58, 75, 88, 72, 91, 100, 95, 110]
+    },
+    "roleDistribution": {
+      "labels": ["Top", "Jungle", "Mid", "ADC", "Support"],
+      "data": [15, 20, 30, 25, 10]
+    },
+    "kdaTrend": {
+      "labels": ["Match 1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12"],
+      "data": [2.5, 1.8, 3.2, 2.1, 2.8, 1.5, 3.5, 2.3, 3.0, 4.0, 2.0, 2.7]
+    },
+    "mostPlayed": {
+      "labels": ["Jinx", "Ahri", "Yasuo", "Lux", "Thresh", "Lee Sin"],
+      "data": [12, 10, 8, 7, 6, 5]
+    },
+    "champAvgStats": {
+      "labels": ["KDA", "CS/min", "Damage/min", "Vision/min", "Gold/min"],
+      "datasets": [
+        { "champion": "Jinx", "data": [3.2, 7.5, 5.8, 0.8, 4.2] },
+        { "champion": "Ahri", "data": [2.8, 6.2, 6.5, 1.2, 3.8] },
+        { "champion": "Yasuo", "data": [2.1, 8.0, 7.2, 0.5, 4.5] }
+      ]
+    }
+  },
+  "hexStats": [
+    { "label": "Mechanics", "value": 78 },
+    { "label": "Game Sense", "value": 85 },
+    { "label": "Teamwork", "value": 90 },
+    { "label": "Aggression", "value": 65 },
+    { "label": "Economy", "value": 72 },
+    { "label": "Clutch", "value": 80 }
+  ]
+}

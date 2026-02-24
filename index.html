@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Joseph Kang — Aspiring Data Analyst, Math and CS @ UIC. Portfolio showcasing data analytics projects and gaming analytics.">
+  <title>Joseph Kang | Data Analyst & Gamer</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-accent">JK</span>.dev
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="gaming.html">Gaming</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <button class="theme-toggle" aria-label="Toggle light and dark mode" title="Toggle theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html" class="active">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="gaming.html">Gaming</a>
+    <a href="resume.html">Resume</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <canvas class="hero-canvas" id="particleCanvas" aria-hidden="true"></canvas>
+
+    <div class="hero-content">
+      <!-- Gaming Avatar -->
+      <div class="hero-avatar" aria-label="Gaming avatar of Joseph Kang">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="50" cy="35" r="20" fill="#C9A84C" opacity="0.9"/>
+          <path d="M50 60 C25 60 15 80 15 95 L85 95 C85 80 75 60 50 60Z" fill="#E2012D" opacity="0.9"/>
+          <circle cx="43" cy="32" r="2.5" fill="#0a0a0a"/>
+          <circle cx="57" cy="32" r="2.5" fill="#0a0a0a"/>
+          <path d="M44 40 Q50 45 56 40" stroke="#0a0a0a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M30 22 L40 28 M70 22 L60 28" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+          <rect x="20" y="70" width="15" height="8" rx="2" fill="#C9A84C" opacity="0.6"/>
+          <rect x="65" y="70" width="15" height="8" rx="2" fill="#C9A84C" opacity="0.6"/>
+        </svg>
+      </div>
+
+      <!-- Name & Tagline -->
+      <h1 class="hero-name">
+        Joseph <span class="name-accent">Kang</span>
+      </h1>
+      <p class="hero-tagline">
+        Aspiring Data Analyst <span class="tagline-separator">|</span>
+        Math and CS @ UIC
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="cta-group">
+        <a href="projects.html" class="btn btn-primary">
+          <i class="fa-solid fa-folder-open"></i> View Projects
+        </a>
+        <a href="resume.html" class="btn btn-outline">
+          <i class="fa-solid fa-file-arrow-down"></i> Resume
+        </a>
+        <a href="contact.html" class="btn btn-outline">
+          <i class="fa-solid fa-envelope"></i> Contact Me
+        </a>
+      </div>
+
+      <!-- Stats Banner -->
+      <div class="stats-banner">
+        <div class="stat-card">
+          <span class="stat-number" data-target="5">0</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" data-target="8">0</span>
+          <span class="stat-label">Tools</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" data-target="4">0</span>
+          <span class="stat-label">Languages</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" data-target="2">0</span>
+          <span class="stat-label">Games Analyzed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Joseph Kang. Built with passion for data and gaming.</p>
+      <p class="footer-attribution">
+        Gaming data powered by Riot Games API. Not endorsed by Riot Games.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/particles.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

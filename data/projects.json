@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Service Efficiency Simulation",
+    "description": "Monte Carlo simulation of customer arrival and service processes using Poisson and Normal distributions, with Taguchi Loss Function analysis to evaluate financial inefficiencies in wait time and idle time.",
+    "tools": ["Julia"],
+    "category": "simulation",
+    "github": "https://github.com/jkang86/service-efficiency-simulation",
+    "icon": "fa-solid fa-chart-line",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Numerical Method Solver",
+    "description": "Julia-based numerical analysis toolkit implementing Euler, Adams\u2013Bashforth/Moulton Predictor\u2013Corrector methods, and a full Finite Element Method (FEM) framework for solving boundary value problems with error norms and log\u2013log convergence plots.",
+    "tools": ["Julia", "Jupyter"],
+    "category": "simulation",
+    "github": "https://github.com/jkang86/Numerical-Method-Solver-",
+    "icon": "fa-solid fa-calculator",
+    "featured": true
+  },
+  {
+    "id": 3,
+    "title": "Predicting Student Final Grades",
+    "description": "Predicting student final grades in Math and Portuguese using regression, classification, and ensemble machine learning models. Includes full R code, EDA, model selection, and RMSE comparison.",
+    "tools": ["R"],
+    "category": "ml",
+    "github": "https://github.com/jkang86/Predicting-Students-Final-Grades",
+    "icon": "fa-solid fa-graduation-cap",
+    "featured": true
+  }
+]

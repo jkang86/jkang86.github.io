@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Projects by Joseph Kang — Data analytics, simulations, and machine learning projects.">
+  <title>Projects | Joseph Kang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="nav-logo"><span class="logo-accent">JK</span>.dev</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="gaming.html">Gaming</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle light and dark mode" title="Toggle theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html" class="active">Projects</a>
+    <a href="gaming.html">Gaming</a>
+    <a href="resume.html">Resume</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <h1 class="section-title">My <span>Projects</span></h1>
+      <div class="gold-line"></div>
+      <p class="section-subtitle">Data analytics, simulations, and machine learning work</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <!-- Filter Bar -->
+        <div class="filter-bar fade-in" role="group" aria-label="Filter projects by category">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="simulation">Simulation</button>
+          <button class="filter-btn" data-filter="ml">Machine Learning</button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid" id="projectsGrid">
+          <!-- Card 1: Service Efficiency Simulation -->
+          <article class="project-card fade-in" data-category="simulation">
+            <div class="project-card-thumb">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div class="project-card-body">
+              <h2 class="project-card-title">Service Efficiency Simulation</h2>
+              <p class="project-card-desc">Monte Carlo simulation of customer arrival and service processes using Poisson and Normal distributions, with Taguchi Loss Function analysis to evaluate financial inefficiencies.</p>
+              <div class="project-card-tags">
+                <span class="tag">Julia</span>
+              </div>
+              <div class="project-card-links">
+                <a href="https://github.com/jkang86/service-efficiency-simulation" target="_blank" rel="noopener noreferrer" aria-label="View Service Efficiency Simulation on GitHub">
+                  <i class="fa-brands fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Numerical Method Solver -->
+          <article class="project-card fade-in" data-category="simulation">
+            <div class="project-card-thumb">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+            <div class="project-card-body">
+              <h2 class="project-card-title">Numerical Method Solver</h2>
+              <p class="project-card-desc">Euler, Adams–Bashforth/Moulton Predictor–Corrector methods, and a full Finite Element Method (FEM) framework for solving boundary value problems with convergence plots.</p>
+              <div class="project-card-tags">
+                <span class="tag">Julia</span>
+                <span class="tag">Jupyter</span>
+              </div>
+              <div class="project-card-links">
+                <a href="https://github.com/jkang86/Numerical-Method-Solver-" target="_blank" rel="noopener noreferrer" aria-label="View Numerical Method Solver on GitHub">
+                  <i class="fa-brands fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: Predicting Student Final Grades -->
+          <article class="project-card fade-in" data-category="ml">
+            <div class="project-card-thumb">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="project-card-body">
+              <h2 class="project-card-title">Predicting Student Final Grades</h2>
+              <p class="project-card-desc">Predicting student final grades in Math and Portuguese using regression, classification, and ensemble machine learning models with EDA and RMSE comparison.</p>
+              <div class="project-card-tags">
+                <span class="tag">R</span>
+              </div>
+              <div class="project-card-links">
+                <a href="https://github.com/jkang86/Predicting-Students-Final-Grades" target="_blank" rel="noopener noreferrer" aria-label="View Predicting Student Final Grades on GitHub">
+                  <i class="fa-brands fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Joseph Kang. Built with passion for data and gaming.</p>
+      <p class="footer-attribution">
+        Gaming data powered by Riot Games API. Not endorsed by Riot Games.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/filters.js" defer></script>
+</body>
+</html>

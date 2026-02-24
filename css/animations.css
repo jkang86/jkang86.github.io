@@ -1,0 +1,100 @@
+/* ============================================
+   Animations & Keyframes
+   ============================================ */
+
+/* Fade in from below */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in from left */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Subtle pulse glow for avatar border */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(226, 1, 45, 0.2), 0 0 40px rgba(201, 168, 76, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(226, 1, 45, 0.35), 0 0 60px rgba(201, 168, 76, 0.2);
+  }
+}
+
+.hero-avatar {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Skill bar shimmer */
+@keyframes skillShimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+.skill-bar-fill.animated::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation: skillShimmer 2s ease-in-out 1.5s;
+}
+
+/* Counter number pop */
+@keyframes numberPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.stat-number.counted {
+  animation: numberPop 0.3s ease;
+}
+
+/* Hero text stagger */
+.hero-content > * {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.hero-content > *:nth-child(1) { animation-delay: 0.2s; }
+.hero-content > *:nth-child(2) { animation-delay: 0.4s; }
+.hero-content > *:nth-child(3) { animation-delay: 0.6s; }
+.hero-content > *:nth-child(4) { animation-delay: 0.8s; }
+.hero-content > *:nth-child(5) { animation-delay: 1.0s; }
+
+/* Hexagonal clip path for decorative use */
+.hex-clip {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* Theme toggle spin */
+.theme-toggle.switching {
+  animation: spin360 0.4s ease;
+}
+
+@keyframes spin360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
