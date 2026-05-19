@@ -1,0 +1,42 @@
+name: Update Data
+
+on:
+  schedule:
+    # Every Monday at 06:00 UTC
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch Riftbound data
+        run: node scripts/fetch-riftbound.js
+        # No API key required — TCGCSV is public
+
+      - name: Fetch LoL data
+        run: node scripts/fetch-lol.js
+        env:
+          RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
+        # If the secret is missing the script exits cleanly and skips this step
+        continue-on-error: true
+
+      - name: Commit updated data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data/
+          # Only commit if there are changes
+          git diff --cached --quiet || git commit -m "chore: update public data [$(date -u +%Y-%m-%d)]"
+          git push

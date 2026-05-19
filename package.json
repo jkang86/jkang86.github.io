@@ -1,0 +1,42 @@
+{
+  "name": "joseph-kang-portfolio",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "description": "Joseph Kang portfolio — T1 esports editorial aesthetic. React 18 + Vite + TS + Tailwind + Framer Motion + GSAP + Lenis + Recharts.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write .",
+    "fetch:lol": "node scripts/fetch-lol.js",
+    "fetch:riftbound": "node scripts/fetch-riftbound.js"
+  },
+  "dependencies": {
+    "@formkit/auto-animate": "^0.8.2",
+    "framer-motion": "^11.3.19",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.13",
+    "papaparse": "^5.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0",
+    "recharts": "^2.12.7"
+  },
+  "devDependencies": {
+    "@types/papaparse": "^5.3.14",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "postcss": "^8.4.41",
+    "prettier": "^3.3.3",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.1"
+  }
+}

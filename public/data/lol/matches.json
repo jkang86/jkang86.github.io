@@ -1,0 +1,12 @@
+[
+  {"win":true, "champion":"Jinx",    "kills":11,"deaths":2,"assists":7, "kda":9.0,  "role":"ADC"},
+  {"win":false,"champion":"Caitlyn", "kills":4, "deaths":6,"assists":3, "kda":1.17, "role":"ADC"},
+  {"win":true, "champion":"Jinx",    "kills":8, "deaths":3,"assists":5, "kda":4.33, "role":"ADC"},
+  {"win":true, "champion":"Jhin",    "kills":9, "deaths":1,"assists":10,"kda":19.0, "role":"ADC"},
+  {"win":false,"champion":"Ezreal",  "kills":5, "deaths":5,"assists":4, "kda":1.8,  "role":"ADC"},
+  {"win":true, "champion":"Jinx",    "kills":14,"deaths":4,"assists":8, "kda":5.5,  "role":"ADC"},
+  {"win":false,"champion":"Caitlyn", "kills":3, "deaths":7,"assists":2, "kda":0.71, "role":"ADC"},
+  {"win":true, "champion":"Kai'Sa",  "kills":7, "deaths":2,"assists":9, "kda":8.0,  "role":"ADC"},
+  {"win":true, "champion":"Jinx",    "kills":12,"deaths":3,"assists":6, "kda":6.0,  "role":"ADC"},
+  {"win":false,"champion":"Ashe",    "kills":4, "deaths":5,"assists":8, "kda":2.4,  "role":"ADC"}
+]

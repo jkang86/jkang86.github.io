@@ -1,0 +1,48 @@
+@import "./tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { color-scheme: dark; scroll-behavior: smooth; }
+  html.lenis,
+  html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  .lenis.lenis-smooth iframe { pointer-events: none; }
+
+  body { font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+
+  ::selection { background: var(--color-red); color: #fff; }
+
+  /* Global focus ring — keyboard nav only */
+  :focus-visible {
+    outline: 2px solid theme('colors.brand.red');
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  :focus:not(:focus-visible) { outline: none; }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 px-5 py-3 font-heading uppercase tracking-ultra text-sm font-semibold transition-all duration-200; }
+  .btn-primary { @apply bg-brand-red text-white hover:bg-brand-red/90 hover:translate-y-[-1px] active:translate-y-0; box-shadow: 0 6px 20px rgba(214,10,46,.35); }
+  .btn-outline { @apply border border-brand-border text-brand-white hover:border-brand-gold hover:text-brand-gold; }
+  .btn-ghost { @apply text-brand-muted hover:text-brand-white; }
+
+  .tag { @apply inline-flex items-center px-2 py-1 border border-brand-border text-brand-muted font-mono text-[11px] tracking-ultra uppercase; }
+
+  .label-kicker { @apply font-mono text-xs tracking-ultra uppercase text-brand-red; }
+  .hex { clip-path: var(--radius-hex); }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  /* hide scrollbars on horizontal chip rows etc */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
