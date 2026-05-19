@@ -496,19 +496,21 @@ export default function GamingPage() {
 
       <div className="relative z-10 mx-auto max-w-[1400px] px-7">
         <FadeUp>
-          <div className="relative">
-            <span className="label-kicker">// DATA ARENA</span>
-            <motion.h1
-              id="main-content"
-              variants={glitchVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="mt-2 font-display text-[clamp(3rem,8vw,6rem)] leading-[0.95] tracking-tightest text-brand-white"
-            >
-              GAMING ANALYTICS
-            </motion.h1>
-            <div className="absolute right-0 top-0 hidden lg:block">
+          <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[1fr_auto]">
+            <div>
+              <span className="label-kicker">// DATA ARENA</span>
+              <motion.h1
+                id="main-content"
+                variants={glitchVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="mt-2 font-display text-[clamp(3rem,8vw,6rem)] leading-[0.95] tracking-tightest text-brand-white"
+              >
+                GAMING ANALYTICS
+              </motion.h1>
+            </div>
+            <div className="hidden justify-center lg:flex">
               <TigerSprite state={spriteState} size={140} float />
             </div>
           </div>

@@ -1,15 +1,15 @@
-date,card_name,price,forecast
-2025-11-01,Aurelia Voice of Dawn,65.00,65.80
-2025-11-02,Aurelia Voice of Dawn,66.20,66.50
-2025-11-03,Aurelia Voice of Dawn,65.80,66.10
-2025-11-04,Aurelia Voice of Dawn,67.40,67.20
-2025-11-05,Aurelia Voice of Dawn,68.50,68.00
-2025-11-06,Aurelia Voice of Dawn,67.90,68.30
-2025-11-07,Aurelia Voice of Dawn,69.20,69.50
-2025-11-08,Aurelia Voice of Dawn,70.10,70.40
-2025-11-09,Aurelia Voice of Dawn,69.80,70.20
-2025-11-10,Aurelia Voice of Dawn,71.30,71.60
-2025-11-11,Aurelia Voice of Dawn,72.40,72.10
-2025-11-12,Aurelia Voice of Dawn,71.90,72.30
-2025-11-13,Aurelia Voice of Dawn,73.50,73.80
-2025-11-14,Aurelia Voice of Dawn,74.20,74.50
+card_display,week,actual_price,predicted_price,model
+Ahri - Alluring (Launch Exclusive),2025-10-27,148.50,147.20,XGBoost
+Ahri - Alluring (Launch Exclusive),2025-11-03,152.30,151.80,XGBoost
+Ahri - Alluring (Launch Exclusive),2025-11-10,155.88,154.60,XGBoost
+Ahri - Alluring (Launch Exclusive),2025-11-17,158.40,157.90,XGBoost
+Ahri - Alluring (Launch Exclusive),2025-11-24,161.20,160.50,XGBoost
+Ahri - Alluring (Launch Exclusive),2025-12-01,163.80,163.10,XGBoost
+Ahri - Alluring (Launch Exclusive),2025-12-08,165.50,166.20,XGBoost
+Sprite Mother,2025-10-27,4.20,4.18,XGBoost
+Sprite Mother,2025-11-03,4.40,4.38,XGBoost
+Sprite Mother,2025-11-10,4.80,4.75,XGBoost
+Sprite Mother,2025-11-17,5.10,5.08,XGBoost
+Sprite Mother,2025-11-24,5.40,5.35,XGBoost
+Sprite Mother,2025-12-01,5.60,5.58,XGBoost
+Sprite Mother,2025-12-08,5.78,5.80,XGBoost

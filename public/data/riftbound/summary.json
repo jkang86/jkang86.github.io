@@ -1,1 +1,8 @@
-{"lastUpdated":null,"avgPrice":71.40,"totalSkus":512,"bestRmse":2.56,"bestR2":0.998}
+{
+  "lastUpdated": null,
+  "avgPrice": 12.45,
+  "totalSkus": 512,
+  "bestRmse": 0.0641,
+  "bestR2": 0.9986,
+  "bestModel": "XGBoost"
+}

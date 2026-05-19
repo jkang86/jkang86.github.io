@@ -1,12 +1,14 @@
 import type { Config } from "tailwindcss";
 
-/**
- * Brand tokens live HERE, mirrored as CSS variables in src/styles/tokens.css.
- * This means you can use either:
- *   <div className="bg-brand-red text-white">...</div>
- *   <div style={{ background: "var(--color-red)" }}>...</div>
- * Both resolve to the same value.
- */
+// Allows Tailwind opacity modifiers (e.g. bg-brand-bg/80) to work with CSS variables.
+// The CSS variable must be a comma-separated RGB tuple: --brand-bg: 11, 11, 14
+function withOpacity(varName: string) {
+  return ({ opacityValue }: { opacityValue?: string }) =>
+    opacityValue !== undefined
+      ? `rgba(var(${varName}), ${opacityValue})`
+      : `rgb(var(${varName}))`;
+}
+
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   darkMode: "class",
@@ -14,17 +16,22 @@ export default {
     extend: {
       colors: {
         brand: {
-          red:    "#D60A2E",
-          gold:   "#B8924A",
-          bg:     "#0B0B0E",
-          ink:    "#1A1A1F",
-          surface: "#15151A",
-          raised: "#1F1F26",
-          border: "#2A2A33",
-          dim:    "#6E6E78",
-          muted:  "#A0A0AC",
-          white:  "#F4F4F6",
+          // Mode-invariant accents — hardcoded hex
+          red:     "#D60A2E",
+          gold:    "#B8924A",
           success: "#3CC774",
+
+          // Theme-switching surfaces — wired to CSS vars via RGB tuples
+          bg:      withOpacity("--brand-bg")      as unknown as string,
+          surface: withOpacity("--brand-surface") as unknown as string,
+          raised:  withOpacity("--brand-raised")  as unknown as string,
+          border:  withOpacity("--brand-border")  as unknown as string,
+
+          // Theme-switching text/UI — direct CSS var (no opacity modifier needed)
+          white:   "var(--brand-white)",
+          muted:   "var(--brand-muted)",
+          dim:     "var(--brand-dim)",
+          ink:     "var(--brand-ink)",
         },
       },
       fontFamily: {
@@ -38,9 +45,9 @@ export default {
         ultra: "0.18em",
       },
       keyframes: {
-        floaty:    { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-6px)" } },
-        speeding:  { "0%": { transform: "translateX(-20%)" }, "100%": { transform: "translateX(120%)" } },
-        glitch:    { "0%,100%": { transform: "translate(0,0)" }, "20%": { transform: "translate(-2px,1px)" }, "40%": { transform: "translate(2px,-1px)" }, "60%": { transform: "translate(-1px,2px)" }, "80%": { transform: "translate(1px,-2px)" } },
+        floaty:   { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-6px)" } },
+        speeding: { "0%": { transform: "translateX(-20%)" }, "100%": { transform: "translateX(120%)" } },
+        glitch:   { "0%,100%": { transform: "translate(0,0)" }, "20%": { transform: "translate(-2px,1px)" }, "40%": { transform: "translate(2px,-1px)" }, "60%": { transform: "translate(-1px,2px)" }, "80%": { transform: "translate(1px,-2px)" } },
       },
       animation: {
         floaty:   "floaty 3s ease-in-out infinite",

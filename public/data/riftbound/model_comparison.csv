@@ -1,7 +1,7 @@
-model,rmse,mae,r2
-Prophet,2.56,1.98,0.998
-XGBoost,3.14,2.41,0.993
-Random Forest,3.82,2.87,0.988
-ARIMA,4.51,3.34,0.981
-Ridge,6.23,4.71,0.962
-Lasso,6.47,4.89,0.959
+model_name,RMSE,MAE,R2
+XGBoost,0.0641,0.0578,0.9841
+ARIMA,0.0662,0.0609,0.9986
+RandomForest,0.0664,0.0579,0.9959
+Prophet,0.0992,0.0897,0.9963
+Lasso,0.1102,0.0958,0.9871
+Ridge,0.1236,0.1084,0.9964

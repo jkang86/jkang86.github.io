@@ -23,9 +23,15 @@ export default function Nav() {
   const location = useLocation();
   const reduce = useReducedMotion();
 
-  // Apply theme class to <html>
+  // Apply theme to <html>: data-theme="light" drives CSS vars; .dark drives any Tailwind dark: variants
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
+    if (dark) {
+      document.documentElement.removeAttribute("data-theme");
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      document.documentElement.classList.remove("dark");
+    }
     document.documentElement.style.colorScheme = dark ? "dark" : "light";
     localStorage.setItem("jk-theme", dark ? "dark" : "light");
   }, [dark]);

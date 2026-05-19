@@ -1,24 +1,61 @@
-/* CSS variable mirror of Tailwind brand tokens.
-   Lets non-Tailwind consumers (third-party libs, inline styles, computed colors)
-   reach the same palette. Edit BOTH places if you change a value. */
+/* Brand token CSS variables.
+   RGB tuples (comma-separated) are used for Tailwind opacity-modifier support:
+     bg-brand-bg/80 → rgba(var(--brand-bg), 0.8)
+   Direct hex/rgba values are used for colors never combined with opacity. */
 
 :root {
-  --color-red: #D60A2E;
-  --color-gold: #B8924A;
-  --color-bg: #0B0B0E;
-  --color-ink: #1A1A1F;
-  --color-surface: #15151A;
-  --color-raised: #1F1F26;
-  --color-border: #2A2A33;
-  --color-dim: #6E6E78;
-  --color-muted: #A0A0AC;
-  --color-white: #F4F4F6;
+  /* ── RGB tuples (opacity-modifier-compatible) ─────────────── */
+  --brand-bg:      11, 11, 14;       /* #0B0B0E */
+  --brand-surface: 21, 21, 26;       /* #15151A */
+  --brand-raised:  31, 31, 38;       /* #1F1F26 */
+  --brand-border:  42, 42, 51;       /* #2A2A33 */
+
+  /* ── Direct values (no opacity modifier needed) ────────────── */
+  --brand-white: #F4F4F6;
+  --brand-muted: #A0A0AC;
+  --brand-dim:   #6E6E78;
+  --brand-ink:   #1A1A1F;
+
+  /* ── Invariant accents ─────────────────────────────────────── */
+  --color-red:     #D60A2E;
+  --color-gold:    #B8924A;
   --color-success: #3CC774;
 
+  /* ── CSS var mirror (for inline styles, Recharts, SVGs) ─────── */
+  --color-bg:      #0B0B0E;
+  --color-surface: #15151A;
+  --color-raised:  #1F1F26;
+  --color-border:  #2A2A33;
+  --color-white:   #F4F4F6;
+  --color-muted:   #A0A0AC;
+  --color-dim:     #6E6E78;
+
+  /* ── Typography ─────────────────────────────────────────────── */
   --font-display: "Bebas Neue", Impact, sans-serif;
   --font-heading: Rajdhani, sans-serif;
-  --font-body: Inter, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-body:    Inter, system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", monospace;
 
   --radius-hex: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* ── Light mode overrides ────────────────────────────────────────── */
+[data-theme="light"] {
+  --brand-bg:      245, 243, 238;    /* #f5f3ee — warm off-white */
+  --brand-surface: 255, 255, 255;    /* #ffffff */
+  --brand-raised:  255, 255, 255;    /* #ffffff */
+  --brand-border:  216, 211, 200;    /* #d8d3c8 */
+
+  --brand-white: #0a0a0a;
+  --brand-muted: rgba(10, 10, 10, 0.65);
+  --brand-dim:   rgba(10, 10, 10, 0.42);
+  --brand-ink:   #f5f3ee;
+
+  --color-bg:      #f5f3ee;
+  --color-surface: #ffffff;
+  --color-raised:  #ffffff;
+  --color-border:  #d8d3c8;
+  --color-white:   #0a0a0a;
+  --color-muted:   rgba(10, 10, 10, 0.65);
+  --color-dim:     rgba(10, 10, 10, 0.42);
 }

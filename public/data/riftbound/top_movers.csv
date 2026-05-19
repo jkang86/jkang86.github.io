@@ -1,7 +1,6 @@
-card_name,price_change,change_pct,direction
-Aurelia Voice of Dawn,8.50,12.9,up
-Zephyr Drake,4.20,8.1,up
-Solaris Blade,2.30,4.2,up
-Thornbark Warden,-1.90,-3.1,down
-Ironclad Sentinel,-3.10,-6.4,down
-Voidwatcher,-5.80,-9.7,down
+card_display,week,price,pct_change_1w,direction
+Sprite Mother,2025-12-08,5.78,3.6992,Up
+Ahri - Alluring (Launch Exclusive),2025-12-08,165.50,1.0800,Up
+Rune Prison,2025-12-08,0.50,0.0,Flat
+Mountain Drake,2025-12-08,0.68,-0.4560,Down
+Acceptable Losses,2025-12-08,0.31,-1.2400,Down
