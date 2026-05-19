@@ -6,25 +6,31 @@ export interface RiftboundSummary {
   totalSkus: number;
   bestRmse: number;
   bestR2: number;
+  bestModel: string;
 }
 
+// Matches data/exports/prices.csv in jkang86/riftbound-price-forecast
 export interface PriceRow {
-  date: string;
-  card_name: string;
-  price: number;
-  forecast: number;
-}
-
-export interface TopMover {
-  card_name: string;
-  price_change: number;
-  change_pct: number;
-  direction: "up" | "down";
-}
-
-export interface ModelRow {
+  card_display: string;
+  week: string;
+  actual_price: number;
+  predicted_price: number;
   model: string;
-  rmse: number;
-  mae: number;
-  r2: number;
+}
+
+// Matches data/exports/top_movers.csv
+export interface TopMover {
+  card_display: string;
+  week: string;
+  price: number;
+  pct_change_1w: number;
+  direction: "Up" | "Down" | "Flat";
+}
+
+// Matches data/exports/model_comparison.csv
+export interface ModelRow {
+  model_name: string;
+  RMSE: number;
+  MAE: number;
+  R2: number;
 }

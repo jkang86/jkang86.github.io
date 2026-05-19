@@ -33,22 +33,26 @@ const tickStyle = {
   fontFamily: "var(--font-mono)",
 };
 
+const PCT_KEYS  = new Set(["pct_change_1w"]);
+const DOLLAR_KEYS = new Set(["actual_price", "predicted_price", "price", "lp"]);
+
 function ChartTooltip({ active, payload, label }: TooltipProps<number, string>) {
   if (!active || !payload?.length) return null;
   return (
     <div className="border border-brand-border bg-brand-raised px-3 py-2">
       <div className="mb-1 font-mono text-[10px] tracking-ultra text-brand-muted">{label}</div>
-      {payload.map((p) => (
-        <div
-          key={p.name}
-          className="font-heading text-sm font-bold"
-          style={{ color: p.color ?? C.white }}
-        >
-          {p.name === "price" || p.name === "forecast" || p.name === "price_change"
-            ? `$${Number(p.value).toFixed(2)}`
-            : p.value}
-        </div>
-      ))}
+      {payload.map((p) => {
+        const val = Number(p.value);
+        let formatted: string;
+        if (PCT_KEYS.has(p.name ?? ""))    formatted = `${val.toFixed(2)}%`;
+        else if (DOLLAR_KEYS.has(p.name ?? "")) formatted = `$${val.toFixed(2)}`;
+        else formatted = String(p.value);
+        return (
+          <div key={p.name} className="font-heading text-sm font-bold" style={{ color: p.color ?? C.white }}>
+            {formatted}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -81,25 +85,49 @@ function RiftboundSection({ onTopMoverChange }: RiftboundSectionProps) {
   const { data: summary, loading: sl, cached: sc } = useJSON<RiftboundSummary>(
     "/data/riftbound/summary.json", RIFTBOUND_SUMMARY,
   );
-  const { data: prices }     = useCSV<PriceRow>("/data/riftbound/prices.csv",           RIFTBOUND_PRICES);
-  const { data: movers }     = useCSV<TopMover>("/data/riftbound/top_movers.csv",        RIFTBOUND_TOP_MOVERS);
-  const { data: models }     = useCSV<ModelRow>("/data/riftbound/model_comparison.csv",  RIFTBOUND_MODELS);
+  const { data: prices } = useCSV<PriceRow>("/data/riftbound/prices.csv",           RIFTBOUND_PRICES);
+  const { data: movers } = useCSV<TopMover>("/data/riftbound/top_movers.csv",        RIFTBOUND_TOP_MOVERS);
+  const { data: models } = useCSV<ModelRow>("/data/riftbound/model_comparison.csv",  RIFTBOUND_MODELS);
+
+  // Filter prices to XGBoost, pick the highest-value card, sort by week
+  const { topCardPrices, topCardName } = useMemo(() => {
+    const xgb = prices.filter((r) => r.model === "XGBoost");
+    if (!xgb.length) return { topCardPrices: prices.slice(0, 14), topCardName: "" };
+
+    const cardSum = new Map<string, number>();
+    xgb.forEach((r) => cardSum.set(r.card_display, (cardSum.get(r.card_display) ?? 0) + r.actual_price));
+    const topCard = [...cardSum.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "";
+    const filtered = xgb.filter((r) => r.card_display === topCard).sort((a, b) => a.week.localeCompare(b.week));
+    return { topCardPrices: filtered, topCardName: topCard };
+  }, [prices]);
+
+  // Filter movers to most recent week, sort by |pct_change_1w| desc
+  const latestMovers = useMemo(() => {
+    if (!movers.length) return movers;
+    const latestWeek = movers.reduce((max, m) => (m.week > max ? m.week : max), "");
+    return movers
+      .filter((m) => m.week === latestWeek)
+      .sort((a, b) => Math.abs(b.pct_change_1w) - Math.abs(a.pct_change_1w))
+      .slice(0, 8);
+  }, [movers]);
 
   // Notify parent about top mover direction for sprite swap
   useEffect(() => {
-    if (movers.length > 0) onTopMoverChange(movers[0].direction);
-  }, [movers, onTopMoverChange]);
+    if (!latestMovers.length) return;
+    const dir = latestMovers[0].direction;
+    onTopMoverChange(dir === "Up" ? "up" : dir === "Down" ? "down" : null);
+  }, [latestMovers, onTopMoverChange]);
 
   const kpis = useMemo(() => [
-    { label: "AVG PRICE · 24H", value: `$${summary.avgPrice.toFixed(2)}`, delta: "+2.1%" },
-    { label: "SKUs TRACKED",     value: summary.totalSkus.toLocaleString(), delta: "+12"   },
-    { label: "PROPHET RMSE",     value: `$${summary.bestRmse}`,            delta: "R²=0.998" },
-    { label: "UPTIME · 30D",     value: "98.7%",                           delta: "stable" },
+    { label: "AVG PRICE · LIVE",  value: `$${summary.avgPrice.toFixed(2)}`,  delta: "TCGCSV" },
+    { label: "SKUs TRACKED",      value: summary.totalSkus.toLocaleString(),  delta: "live"   },
+    { label: "BEST MODEL RMSE",   value: `$${summary.bestRmse.toFixed(4)}`,  delta: summary.bestModel },
+    { label: "BEST R²",           value: summary.bestR2.toFixed(4),           delta: "XGBoost/ARIMA" },
   ], [summary]);
 
-  const dateLabel = (d: string) => {
-    const [, m, day] = d.split("-");
-    return `${m}/${day}`;
+  const weekLabel = (w: string) => {
+    const [, m, d] = w.split("-");
+    return `${m}/${d}`;
   };
 
   const bestModel = models[0];
@@ -129,7 +157,7 @@ function RiftboundSection({ onTopMoverChange }: RiftboundSectionProps) {
               <div className="font-display text-2xl text-brand-white">{k.value}</div>
               <div className="mt-1 flex items-baseline justify-between">
                 <span className="font-mono text-[10px] tracking-ultra text-brand-dim">{k.label}</span>
-                <span className="font-mono text-[10px] text-brand-gold">{k.delta}</span>
+                <span className="font-mono text-[10px] text-brand-gold uppercase">{k.delta}</span>
               </div>
             </div>
           </StaggerItem>
@@ -140,20 +168,17 @@ function RiftboundSection({ onTopMoverChange }: RiftboundSectionProps) {
       <FadeUp delay={0.1} className="mt-4">
         <div className="border border-brand-border bg-brand-surface p-5">
           <h3 className="mb-4 font-heading text-base font-bold uppercase tracking-wide text-brand-white">
-            Aurelia, Voice of Dawn — 14-Day Forecast
+            {topCardName || "Top Card"} — Weekly Forecast
           </h3>
-          <div
-            role="img"
-            aria-label="Line chart showing Aurelia Voice of Dawn price and forecast over 14 days"
-          >
+          <div role="img" aria-label={`Line chart showing ${topCardName} actual price vs XGBoost forecast by week`}>
             <ResponsiveContainer width="100%" height={220}>
-              <LineChart data={prices} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
+              <LineChart data={topCardPrices} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke={C.border} />
-                <XAxis dataKey="date" tickFormatter={dateLabel} tick={tickStyle} axisLine={false} tickLine={false} />
+                <XAxis dataKey="week" tickFormatter={weekLabel} tick={tickStyle} axisLine={false} tickLine={false} />
                 <YAxis domain={["auto", "auto"]} tick={tickStyle} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}`} />
                 <Tooltip content={<ChartTooltip />} />
-                <Line type="monotone" dataKey="price"    stroke={C.red}  strokeWidth={2} dot={false} name="price"    />
-                <Line type="monotone" dataKey="forecast" stroke={C.gold} strokeWidth={2} dot={false} strokeDasharray="5 4" name="forecast" />
+                <Line type="monotone" dataKey="actual_price"    stroke={C.red}  strokeWidth={2} dot={false} name="actual_price"    />
+                <Line type="monotone" dataKey="predicted_price" stroke={C.gold} strokeWidth={2} dot={false} strokeDasharray="5 4" name="predicted_price" />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -162,7 +187,7 @@ function RiftboundSection({ onTopMoverChange }: RiftboundSectionProps) {
               <span className="inline-block h-px w-5 bg-brand-red" aria-hidden="true" /> ACTUAL
             </span>
             <span className="flex items-center gap-1.5 font-mono text-[10px] tracking-ultra text-brand-muted">
-              <span className="inline-block h-px w-5 border-t border-dashed border-brand-gold" aria-hidden="true" /> FORECAST
+              <span className="inline-block h-px w-5 border-t border-dashed border-brand-gold" aria-hidden="true" /> XGBOOST FORECAST
             </span>
           </div>
         </div>
@@ -174,12 +199,12 @@ function RiftboundSection({ onTopMoverChange }: RiftboundSectionProps) {
         <FadeUp delay={0.12}>
           <div className="border border-brand-border bg-brand-surface p-5">
             <h3 className="mb-4 font-heading text-base font-bold uppercase tracking-wide text-brand-white">
-              Top Movers · 24H
+              Top Movers · Latest Week
             </h3>
-            <div role="img" aria-label="Bar chart showing price change for top moving cards">
+            <div role="img" aria-label="Bar chart showing weekly price change % for top moving cards">
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart
-                  data={movers}
+                  data={latestMovers}
                   layout="vertical"
                   margin={{ top: 0, right: 8, bottom: 0, left: 4 }}
                 >
@@ -189,11 +214,11 @@ function RiftboundSection({ onTopMoverChange }: RiftboundSectionProps) {
                     tick={tickStyle}
                     axisLine={false}
                     tickLine={false}
-                    tickFormatter={(v) => `$${v}`}
+                    tickFormatter={(v) => `${Number(v).toFixed(1)}%`}
                   />
                   <YAxis
                     type="category"
-                    dataKey="card_name"
+                    dataKey="card_display"
                     tick={tickStyle}
                     axisLine={false}
                     tickLine={false}
@@ -201,26 +226,25 @@ function RiftboundSection({ onTopMoverChange }: RiftboundSectionProps) {
                     tickFormatter={(v: string) => v.split(" ").slice(0, 2).join(" ")}
                   />
                   <Tooltip content={<ChartTooltip />} />
-                  <Bar dataKey="price_change" name="price_change" radius={[0, 2, 2, 0]}>
-                    {movers.map((entry) => (
+                  <Bar dataKey="pct_change_1w" name="pct_change_1w" radius={[0, 2, 2, 0]}>
+                    {latestMovers.map((entry) => (
                       <Cell
-                        key={entry.card_name}
-                        fill={entry.direction === "up" ? C.success : C.red}
+                        key={entry.card_display}
+                        fill={entry.direction === "Up" ? C.success : entry.direction === "Down" ? C.red : C.muted}
                       />
                     ))}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>
-            {/* sr-only table */}
             <table className="sr-only">
-              <caption>Top Movers 24H</caption>
-              <thead><tr><th>Card</th><th>Change</th><th>Direction</th></tr></thead>
+              <caption>Top Movers Latest Week</caption>
+              <thead><tr><th>Card</th><th>Change %</th><th>Direction</th></tr></thead>
               <tbody>
-                {movers.map((m) => (
-                  <tr key={m.card_name}>
-                    <td>{m.card_name}</td>
-                    <td>${m.price_change.toFixed(2)}</td>
+                {latestMovers.map((m) => (
+                  <tr key={m.card_display}>
+                    <td>{m.card_display}</td>
+                    <td>{m.pct_change_1w.toFixed(2)}%</td>
                     <td>{m.direction}</td>
                   </tr>
                 ))}
@@ -239,10 +263,7 @@ function RiftboundSection({ onTopMoverChange }: RiftboundSectionProps) {
               <thead>
                 <tr className="border-b border-brand-border">
                   {["MODEL", "RMSE", "MAE", "R²"].map((h) => (
-                    <th
-                      key={h}
-                      className="pb-2 text-left font-mono text-[10px] tracking-ultra text-brand-gold"
-                    >
+                    <th key={h} className="pb-2 text-left font-mono text-[10px] tracking-ultra text-brand-gold">
                       {h}
                     </th>
                   ))}
@@ -251,25 +272,25 @@ function RiftboundSection({ onTopMoverChange }: RiftboundSectionProps) {
               <tbody>
                 {models.map((m, i) => (
                   <tr
-                    key={m.model}
+                    key={m.model_name}
                     className={`border-b border-brand-border/40 ${i === 0 ? "text-brand-white" : "text-brand-muted"}`}
                   >
                     <td className="py-2 font-heading text-sm font-semibold uppercase tracking-wide">
-                      {m.model}
+                      {m.model_name}
                       {i === 0 && (
                         <span className="ml-2 font-mono text-[9px] tracking-ultra text-brand-gold">BEST</span>
                       )}
                     </td>
-                    <td className="py-2 font-mono text-xs">{m.rmse}</td>
-                    <td className="py-2 font-mono text-xs">{m.mae}</td>
-                    <td className="py-2 font-mono text-xs">{m.r2}</td>
+                    <td className="py-2 font-mono text-xs">{m.RMSE}</td>
+                    <td className="py-2 font-mono text-xs">{m.MAE}</td>
+                    <td className="py-2 font-mono text-xs">{m.R2}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
             {bestModel && (
               <p className="mt-3 font-mono text-[10px] tracking-ultra text-brand-dim">
-                BEST MODEL: {bestModel.model} — RMSE ${bestModel.rmse}, R² {bestModel.r2}
+                BEST: {bestModel.model_name} — RMSE {bestModel.RMSE}, R² {bestModel.R2}
               </p>
             )}
           </div>
@@ -303,7 +324,6 @@ function LolSection() {
   const { data: champions }           = useJSON<LolChampion[]>("/data/lol/champions.json", LOL_CHAMPIONS);
   const { data: matches }             = useJSON<LolMatch[]>("/data/lol/matches.json", LOL_MATCHES);
 
-  // Derive LP history from match results
   const lpHistory = useMemo(() =>
     matches.reduce<{ match: number; lp: number }[]>((acc, m, i) => {
       const prev = acc[i - 1]?.lp ?? 0;
@@ -470,13 +490,11 @@ export default function GamingPage() {
 
   return (
     <div className="relative overflow-hidden pt-[100px] pb-20">
-      {/* Top speed lines */}
       <div className="absolute inset-x-0 top-[72px] z-0">
         <SpeedLines height={100} count={9} />
       </div>
 
       <div className="relative z-10 mx-auto max-w-[1400px] px-7">
-        {/* Header */}
         <FadeUp>
           <div className="relative">
             <span className="label-kicker">// DATA ARENA</span>
@@ -496,7 +514,6 @@ export default function GamingPage() {
           </div>
         </FadeUp>
 
-        {/* Section A */}
         <div className="mt-10">
           <RiftboundSection
             onTopMoverChange={(dir) =>
@@ -505,12 +522,10 @@ export default function GamingPage() {
           />
         </div>
 
-        {/* Speed-line divider */}
         <div className="my-10">
           <SpeedLines height={60} count={7} />
         </div>
 
-        {/* Section B */}
         <LolSection />
       </div>
     </div>
